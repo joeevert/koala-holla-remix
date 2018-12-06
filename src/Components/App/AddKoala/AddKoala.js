@@ -11,6 +11,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import Switch from '@material-ui/core/Switch';
+
+
+
+
+
 
 const styles = {
   header: {
@@ -39,23 +49,27 @@ class AddKoala extends Component {
     name: '',
     gender: '',
     age: '',
-    ready_to_transfer: '',
+    ready_to_transfer: false,
     notes: '',
     labelWidth: 0,
   }
 
-  handleChange = (propertyName) => (event) => {
+  handleChange = (event) => {
+      
     console.log('in handleChange', event.target.value);
     this.setState({
         ...this.state,
-        [propertyName]: event.target.value
+        [event.target.name]: event.target.value
+    
     })
+    
   }
 
   render() {
     const { classes } = this.props;
     return (
       <form onSubmit={this.handleClick}>
+      {JSON.stringify(this.state)}<br />
         <TextField 
           className={classes.input}
           type="text"
@@ -80,7 +94,7 @@ class AddKoala extends Component {
             input={
               <OutlinedInput
                 labelWidth={this.state.labelWidth}
-                name="age"
+                name="gender"
                 id="outlined-age-simple"
               />
             }
@@ -93,16 +107,6 @@ class AddKoala extends Component {
             <MenuItem value="O">Other</MenuItem>
           </Select>
         </FormControl><br />
-
-        {/* <TextField 
-          className={classes.input}
-          type="text"
-          label="Gender"
-          name="gender"
-          onChange={this.handleChange}
-          variant="outlined"
-          value={this.state.gender}
-        /><br /> */}
         <TextField 
           className={classes.input}
           type="text"
@@ -112,6 +116,49 @@ class AddKoala extends Component {
           variant="outlined"
           value={this.state.age}
         /><br />
+        <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Ready For Harvest?</FormLabel>
+            <RadioGroup
+            name="ready_to_transfer"
+            value={this.state.ready_to_transfer}
+            onChange={this.handleChange}
+            row
+            >
+            <FormControlLabel
+            
+                value="true"
+                control={<Radio color="primary" required/>}
+                label="Ready"
+                labelPlacement="end"
+            />
+            
+            <FormControlLabel
+                value="false"
+                control={<Radio color="primary" required/>}
+                label="Not Ready"
+                labelPlacement="end"
+            />
+            </RadioGroup>
+        </FormControl><br />
+
+        <TextField 
+          className={classes.input}
+          type="text"
+          label="Notes"
+          name="notes"
+          onChange={this.handleChange}
+          variant="outlined"
+          value={this.state.notes}
+          multiline
+          rowsMax="5"
+        /><br />
+        {/* <Switch
+          checked={this.state.ready_to_transfer}
+          onChange={() => this.handleChange()}
+          value={this.state.ready_to_transfer}
+          name={ready_to_transfer}
+        /> */}
+        
         <Button variant="outlined" type="submit">
           SUBMIT
           {/* <Icon fontSize='small'></Icon> */}
