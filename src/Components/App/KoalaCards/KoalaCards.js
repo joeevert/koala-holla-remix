@@ -20,19 +20,21 @@ const styles = {
 
 class KoalaCards extends Component {
 
-  componentDidMount() {
-
-  }
-
   transferKoala = (id) => {
     console.log('transfer!');
   }
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'GET_KOALAS' });
+  }
+
   render() {
     const { classes } = this.props;
+    console.log('koalas from reducer:',this.props.reduxState.koalaReducer.koalas)
+
     return (
       <div>
-        {this.props.reduxState.koalaReducer.map( koala => 
+        {this.props.reduxState.koalaReducer.koalas.map( koala => 
         <Card className={classes.card} key={koala._id}>
           <img src={wet_koala}/>
           <Typography variant="h4">{koala.name}</Typography>
@@ -49,4 +51,8 @@ class KoalaCards extends Component {
   }
 }
 
-export default withStyles(styles)(KoalaCards);
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
+});
+
+export default connect(mapReduxStateToProps)(withStyles(styles)(KoalaCards));

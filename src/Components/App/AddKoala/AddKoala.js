@@ -44,6 +44,11 @@ class AddKoala extends Component {
     labelWidth: 0,
   }
 
+  addKoala = () => {
+    let newKoala = {...this.state, ready_to_transfer: false};
+    this.props.dispatch({ type: 'ADD_KOALA', payload: newKoala});
+  }
+
   handleChange = (propertyName) => (event) => {
     console.log('in handleChange', event.target.value);
     this.setState({
@@ -55,13 +60,13 @@ class AddKoala extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <form onSubmit={this.handleClick}>
+      <form onSubmit={this.addKoala}>
         <TextField 
           className={classes.input}
           type="text"
           label="Name"
           name="name"
-          onChange={this.handleChange}
+          onChange={() => this.handleChange('name')}
           variant="outlined"
           value={this.state.name}
         /><br />
@@ -76,7 +81,7 @@ class AddKoala extends Component {
           </InputLabel>
           <Select
             value={this.state.gender}
-            onChange={this.handleChange}
+            onChange={() => this.handleChange('gender')}
             input={
               <OutlinedInput
                 labelWidth={this.state.labelWidth}
@@ -108,7 +113,7 @@ class AddKoala extends Component {
           type="text"
           label="Age"
           name="age"
-          onChange={this.handleChange}
+          onChange={() => this.handleChange('age')}
           variant="outlined"
           value={this.state.age}
         /><br />
