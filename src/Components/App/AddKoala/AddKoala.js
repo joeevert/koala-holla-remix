@@ -48,23 +48,30 @@ class AddKoala extends Component {
     age: '',
     ready_to_transfer: false,
     notes: '',
+    blood_type: '',
     labelWidth: 0,
   }
 
   handleChange = (event) => {
     console.log('in handleChange', event.target.value);
     this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value
+      ...this.state,
+      [event.target.name]: event.target.value
     })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('adding koala', this.state);
+    this.props.dispatch({ type: 'ADD_KOALA', payload: this.state });
   }
 
   render() {
     const { classes } = this.props;
     return (
       <Paper className={classes.paper}>
-        <form onSubmit={this.handleClick}>
-          {/* {JSON.stringify(this.state)}<br /> */}
+        <form onSubmit={this.handleSubmit}>
+          {JSON.stringify(this.state)}<br />
           <Typography className={classes.header} variant="h4">Add Koala</Typography>
           <TextField 
             className={classes.input}
@@ -77,12 +84,7 @@ class AddKoala extends Component {
           />
           {/* <br /> */}
           <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              ref={ref => {
-              this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-age-simple"
-            >
+            <InputLabel>
               Gender
             </InputLabel>
             <Select
@@ -91,8 +93,8 @@ class AddKoala extends Component {
               onChange={this.handleChange}
               input={
               <OutlinedInput
-                  labelWidth={this.state.labelWidth}
-                  name="gender"
+                labelWidth={this.state.labelWidth}
+                name="gender"
               />
               }
             >
@@ -114,6 +116,34 @@ class AddKoala extends Component {
             variant="outlined"
             value={this.state.age}
           />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel>
+              Blood Type
+            </InputLabel>
+            <Select
+              className={classes.input}
+              value={this.state.blood_type}
+              onChange={this.handleChange}
+              input={
+              <OutlinedInput
+                labelWidth={this.state.labelWidth}
+                name="blood_type"
+              />
+              }
+            >
+              <MenuItem value="">
+              <em>None</em>
+              </MenuItem>
+              <MenuItem value="AB+">AB +</MenuItem>
+              <MenuItem value="AB-">AB -</MenuItem>
+              <MenuItem value="A+">A +</MenuItem>
+              <MenuItem value="A-">A -</MenuItem>
+              <MenuItem value="B+">B +</MenuItem>
+              <MenuItem value="B-">B -</MenuItem>
+              <MenuItem value="O+">O +</MenuItem>
+              <MenuItem value="O-">O -</MenuItem>
+            </Select>
+          </FormControl>
           <br />
           <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Ready For Harvest?</FormLabel>
