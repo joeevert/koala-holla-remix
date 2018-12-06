@@ -4,6 +4,7 @@ const Koalas = require('../modules/mongoose.js');
 
 // Setup a GET route to get all the koalas from the database
 router.get('/', (req, res) => {
+    console.log('Get request for koalas');
     Koalas.find({}).sort( { name: 1 })
         .then( (results) => {
             console.log(results);
@@ -15,45 +16,61 @@ router.get('/', (req, res) => {
 })
 
 
-// Setup a POST route to add a new employee to the database
+// Setup a POST route to add a new koala to the database
 router.post('/', (req, res) => {
-    // const newKoala = req.body;
-    // Koalas.create(newEmployee)
-    //     .then( (results) => {
-    //         console.log(results);
-    //         res.sendStatus(201);
-    //     }).catch( (error) => {
-    //         console.log('error on create:', error);
-    //         res.sendStatus(500);
-    //     })
+    const newKoala = req.body;
+    console.log('Post request for new koala:', newKoala); 
+    Koalas.create(newKoala)
+        .then( (results) => {
+            console.log(results);
+            res.sendStatus(201);
+        }).catch( (error) => {
+            console.log('error on create:', error);
+            res.sendStatus(500);
+        })
 })
 
-// Setup DELETE to remove an employee
+// Setup DELETE to remove a koala
 router.delete('/:id', (req, res) => {
     let reqId = req.params.id;
-    console.log('Delete request for id', reqId);
-    // Employees.remove({ _id: reqId })
-    //     .then( (results) => {
-    //         console.log(results);
-    //         res.sendStatus(201);
-    //     }).catch( (error) => {
-    //         console.log('error on delete:', error);
-    //         res.sendStatus(500);
-    //     })
+    console.log('Delete request for id:', reqId);
+    Koalas.remove({ _id: reqId })
+        .then( (results) => {
+            console.log(results);
+            res.sendStatus(201);
+        }).catch( (error) => {
+            console.log('error on delete:', error);
+            res.sendStatus(500);
+        })
 })
 
-// Setup PUT to update an employee's salary to $57,000
+// Setup PUT to update koala (all qualities)
 router.put('/:id', (req, res) => {
     let reqId = req.params.id;
-    console.log('Put request for id', reqId);
-    // Employees.update({ _id: reqId }, { $set: { annualSalary: 57000} })
-    //     .then( (results) => {
-    //         console.log(results);
-    //         res.sendStatus(201);
-    //     }).catch( (error) => {
-    //         console.log('error on put:', error);
-    //         res.sendStatus(500);
-    //     })
+    updatedKoala = req.body;
+    console.log('Put request (update koala) for id:', reqId);
+    Koalas.update({ _id: reqId }, updatedKoala)
+        .then( (results) => {
+            console.log(results);
+            res.sendStatus(201);
+        }).catch( (error) => {
+            console.log('error on put:', error);
+            res.sendStatus(500);
+        })
+})
+
+// Setup PUT to update koala's transfer status
+router.put('/transfer/:id', (req, res) => {
+    let reqId = req.params.id;
+    console.log(`Put request (update koala's transfer status) for id:`, reqId);
+    Koalas.update({ _id: reqId }, { $set: { ready_to_transfer: true } })
+        .then( (results) => {
+            console.log(results);
+            res.sendStatus(201);
+        }).catch( (error) => {
+            console.log('error on put:', error);
+            res.sendStatus(500);
+        })
 })
 
 module.exports = router;
