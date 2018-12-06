@@ -45,7 +45,7 @@ class KoalaCards extends Component {
       <div>
         {this.props.reduxState.koalaReducer.koalas.map( koala => 
         <Card className={classes.card} key={koala._id}>
-          <img src={koala_img} style={{width: 500}}/>
+          <img src={koala.image_url} alt={koala.name} style={{width: 500}}/>
           <Typography variant="h4">{koala.name}</Typography>
           <Typography>Gender: {koala.gender}</Typography>
           <Typography>Age: {koala.age}</Typography>

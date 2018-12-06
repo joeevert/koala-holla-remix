@@ -48,13 +48,23 @@ class AddKoala extends Component {
     age: '',
     ready_to_transfer: false,
     notes: '',
+    image_url: '',
     labelWidth: 0,
   }
 
-  addKoala = () => {
-    let newKoala = this.state;
-    this.props.dispatch({ type: 'ADD_KOALA', payload: newKoala});
-  }
+  // addKoala = () => {
+  //   let newKoala = this.state;
+  //   this.props.dispatch({ type: 'ADD_KOALA', payload: newKoala});
+  //   this.setState({
+  //     name: '',
+  //     gender: '',
+  //     age: '',
+  //     ready_to_transfer: false,
+  //     notes: '',
+  //     image_url: '',
+  //     labelWidth: 0,
+  //   });
+  // }
 
   handleChange = (event) => {
     console.log('in handleChange', event.target.value);
@@ -66,8 +76,17 @@ class AddKoala extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('adding koala', this.state);
-    this.props.dispatch({ type: 'ADD_KOALA', payload: this.state });
+    let newKoala = this.state;
+    this.props.dispatch({ type: 'ADD_KOALA', payload: newKoala});
+    this.setState({
+      name: '',
+      gender: '',
+      age: '',
+      ready_to_transfer: false,
+      notes: '',
+      image_url: '',
+      labelWidth: 0,
+    });
   }
 
   render() {
@@ -142,6 +161,16 @@ class AddKoala extends Component {
               />
             </RadioGroup>
           </FormControl>
+          <br />
+          <TextField 
+            className={classes.input}
+            type="text"
+            label="Image URL"
+            name="image_url"
+            onChange={this.handleChange}
+            variant="outlined"
+            value={this.state.image_url}
+          />
           <br />
           <TextField 
             className={classes.notes}

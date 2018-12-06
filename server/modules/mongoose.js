@@ -10,7 +10,8 @@ const koalasSchema = new Schema({
     gender: { type: String },
     age: { type: Number },
     ready_to_transfer: { type: Boolean },
-    notes: { type: String }
+    notes: { type: String },
+    image_url: { type: String }
 });
 
 const Koalas = mongoose.model('Koalas', koalasSchema);
