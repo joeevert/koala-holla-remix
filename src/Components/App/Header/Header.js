@@ -6,12 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   header: {
     backgroundColor: '#485167',
-    marginBottom: '50px'
+    marginBottom: '30px'
   },
   mainTitle: {
     color: '#fff',
     fontWeight: 'bold',
-    marginTop: '30px'
+    marginTop: '30px',
+    paddingBottom: '30px'
   },
   subTitle: {
     color: '#fff',
@@ -26,7 +27,6 @@ class Header extends Component {
     return (
       <AppBar className={classes.header} position="static">
         <Typography className={classes.mainTitle} variant='h2'>Koala Holla!</Typography>
-        <Typography className={classes.subTitle} variant='h5'>Something...</Typography>
       </AppBar>
     );
   }

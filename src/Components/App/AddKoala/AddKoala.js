@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// mui
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -22,6 +21,7 @@ const styles = {
     margin: 'auto',
     padding: '25px',
     width: '800px',
+    marginBottom: '10px',
   },
   header: {
     marginBottom: '25px'
@@ -48,12 +48,11 @@ class AddKoala extends Component {
     age: '',
     ready_to_transfer: false,
     notes: '',
-    blood_type: '',
     labelWidth: 0,
   }
 
   addKoala = () => {
-    let newKoala = {...this.state, ready_to_transfer: false};
+    let newKoala = this.state;
     this.props.dispatch({ type: 'ADD_KOALA', payload: newKoala});
   }
 
@@ -76,7 +75,6 @@ class AddKoala extends Component {
     return (
       <Paper className={classes.paper}>
         <form onSubmit={this.handleSubmit}>
-          {JSON.stringify(this.state)}<br />
           <Typography className={classes.header} variant="h4">Add Koala</Typography>
           <TextField 
             className={classes.input}
@@ -121,37 +119,9 @@ class AddKoala extends Component {
             variant="outlined"
             value={this.state.age}
           />
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel>
-              Blood Type
-            </InputLabel>
-            <Select
-              className={classes.input}
-              value={this.state.blood_type}
-              onChange={this.handleChange}
-              input={
-              <OutlinedInput
-                labelWidth={this.state.labelWidth}
-                name="blood_type"
-              />
-              }
-            >
-              <MenuItem value="">
-              <em>None</em>
-              </MenuItem>
-              <MenuItem value="AB+">AB +</MenuItem>
-              <MenuItem value="AB-">AB -</MenuItem>
-              <MenuItem value="A+">A +</MenuItem>
-              <MenuItem value="A-">A -</MenuItem>
-              <MenuItem value="B+">B +</MenuItem>
-              <MenuItem value="B-">B -</MenuItem>
-              <MenuItem value="O+">O +</MenuItem>
-              <MenuItem value="O-">O -</MenuItem>
-            </Select>
-          </FormControl>
           <br />
           <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Ready For Harvest?</FormLabel>
+          <FormLabel component="legend">Ready For Transfer?</FormLabel>
             <RadioGroup
               name="ready_to_transfer"
               value={this.state.ready_to_transfer}
@@ -195,6 +165,6 @@ class AddKoala extends Component {
   }
 }
 
-// const mapStateToProps = ( reduxState ) => ( { reduxState } );
+const mapReduxStateToProps = ( reduxState ) => ( { reduxState } );
 
-export default (withStyles(styles)(AddKoala));
+export default connect(mapReduxStateToProps)(withStyles(styles)(AddKoala));
