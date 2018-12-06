@@ -43,3 +43,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 # koala-holla-remix
+
+how to create mongo database for koala holla:
+
+ `use koala_holla`
+
+ `db.createCollection('koalas')`
+
+ `db.koalas.insert({"name": "Scotty", "gender": "M", "age": 4, "ready_to_transfer": "Y", "notes": "Born in Guatemala"})`
