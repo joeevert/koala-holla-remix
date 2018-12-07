@@ -51,7 +51,7 @@ class KoalaCards extends Component {
           <Typography>Age: {koala.age}</Typography>
           <Typography>Notes: {koala.notes}</Typography>
           <Typography>Status: {(koala.ready_to_transfer) ? 'Ready for Transfer' : 'Not Ready for Transfer'}</Typography>          
-          <Button variant="contained" color="primary" className={classes.button} onClick={() => this.transferKoala(koala._id)}>Transfer</Button>
+          {(koala.ready_to_transfer) ? null :<Button variant="contained" color="primary" className={classes.button} onClick={() => this.transferKoala(koala._id)}>Transfer</Button>}
           <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.deleteKoala(koala._id)}>Remove</Button>
         </Card>
         )}
