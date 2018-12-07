@@ -45,13 +45,13 @@ class KoalaCards extends Component {
       <div>
         {this.props.reduxState.koalaReducer.koalas.map( koala => 
         <Card className={classes.card} key={koala._id}>
-          <img src={koala_img} style={{width: 500}}/>
+          <img src={koala.image_url} alt={koala.name} style={{width: 500}}/>
           <Typography variant="h4">{koala.name}</Typography>
           <Typography>Gender: {koala.gender}</Typography>
           <Typography>Age: {koala.age}</Typography>
           <Typography>Notes: {koala.notes}</Typography>
           <Typography>Status: {(koala.ready_to_transfer) ? 'Ready for Transfer' : 'Not Ready for Transfer'}</Typography>          
-          <Button variant="contained" color="primary" className={classes.button} onClick={() => this.transferKoala(koala._id)}>Transfer</Button>
+          {(koala.ready_to_transfer) ? null :<Button variant="contained" color="primary" className={classes.button} onClick={() => this.transferKoala(koala._id)}>Transfer</Button>}
           <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.deleteKoala(koala._id)}>Remove</Button>
         </Card>
         )}
